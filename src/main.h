@@ -9,7 +9,7 @@ IPAddress ip(10, 0, 1, 155);
 IPAddress myDns(10, 0, 1, 1);
 
 int outputs[]{3, 4, 5, 22, 23, 24, 25, 26, 27};
-int arr_size = sizeof(outputs);
+int arr_size = sizeof(outputs) / sizeof(outputs[0]);
 
 int port = 2000;
 int attempt = 0;

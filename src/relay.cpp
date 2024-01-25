@@ -1,6 +1,6 @@
-#include"relay.h"
+#include "relay.h"
 
-void Relay_action(String _message, String & message, int outputs[])
+void Relay_action(String _message, String &message, int outputs[])
 {
   if (_message == "1ON")
   {
@@ -106,7 +106,7 @@ void Relay_action(String _message, String & message, int outputs[])
     digitalWrite(RE1RE2, LOW);
   }
 
-if (_message == "9ON")
+  if (_message == "9ON")
   {
     Serial.println("\n 1LE+2LE ON");
     message = "";
@@ -119,22 +119,35 @@ if (_message == "9ON")
     digitalWrite(LE1LE2, LOW);
   }
 
-
   if (_message == "ALLON")
   {
+    Serial.println("\n");
     for (int i = 0; i < arr_size; i++)
     {
       digitalWrite(outputs[i], HIGH);
+      Serial.print(outputs[i]);
+      Serial.println(" On");
+      String S = String(outputs[i]);
+      S = S + "ON";
+      const char *c = S.c_str();
+      client.write(c);
       delay(1000);
     }
     message = "";
   }
   if (_message == "ALLOFF")
   {
+    Serial.println("\n");
     for (int i = 0; i < arr_size; i++)
     {
       digitalWrite(outputs[i], LOW);
       delay(1000);
+      Serial.print(outputs[i]);
+      Serial.println(" Off");
+      String S = String(outputs[i]);
+      S = S + "OFF";
+      const char *c = S.c_str();
+      client.write(c);
     }
     message = "";
   }

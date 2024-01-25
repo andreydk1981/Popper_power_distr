@@ -1,4 +1,6 @@
 #include<Arduino.h>
+#include <SPI.h>
+#include <Ethernet.h>
 
 #define projectrosM 22
 #define RE3 23
@@ -12,3 +14,4 @@
 
 extern int outputs[];
 extern int arr_size;
+extern EthernetClient client;

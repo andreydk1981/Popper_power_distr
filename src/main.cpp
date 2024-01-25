@@ -9,12 +9,13 @@ void setup()
   }
   // Initialize serial communication.
   Serial.begin(9600);
-
+  
   Ethernet.begin(mac, ip, myDns);
   Serial.print("Manually assigned the following IP address to the Arduino:");
   Serial.println();
   Serial.println(Ethernet.localIP());
-
+  Serial.print("\narr size=");
+  Serial.println(arr_size);
   // Check for Ethernet hardware.
   if (Ethernet.hardwareStatus() == EthernetNoHardware)
   {
@@ -62,6 +63,7 @@ void loop()
     {
       Serial.print("Connection attempt ");
       Serial.println(attempt++);
+      delay(1000);
     } while (!client.connect(server, port));
     Serial.print("Connected to server running at ");
     Serial.println(client.remoteIP());
