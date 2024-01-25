@@ -9,7 +9,7 @@ void setup()
   }
   // Initialize serial communication.
   Serial.begin(9600);
-  
+
   Ethernet.begin(mac, ip, myDns);
   Serial.print("Manually assigned the following IP address to the Arduino:");
   Serial.println();
