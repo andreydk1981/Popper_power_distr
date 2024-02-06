@@ -9,7 +9,7 @@ void setup()
   }
   // Initialize serial communication.
   Serial.begin(9600);
-  
+
   Ethernet.begin(mac, ip, myDns);
   Serial.print("Manually assigned the following IP address to the Arduino:");
   Serial.println();
@@ -44,7 +44,7 @@ void setup()
   {
     Serial.print("Connected to server running at ");
     Serial.println(client.remoteIP());
-    client.write("connected to client");
+    client.write("connected to BOX");
     attempt = 0;
   }
   else
@@ -55,35 +55,13 @@ void setup()
 
 void loop()
 {
-  if (!client.connected())
+
+  Check_connection(attempt);
+  Read_message (message);
+
+  if (client.connected())
   {
-    Serial.println("Server not found");
-    attempt = 0;
-    do
-    {
-      Serial.print("Connection attempt ");
-      Serial.println(attempt++);
-      delay(1000);
-    } while (!client.connect(server, port));
-    Serial.print("Connected to server running at ");
-    Serial.println(client.remoteIP());
-    client.write("connected to client");
+    Relay_action(message, message, outputs);
+    Check_status(message);
   }
-
-  if (client.available() > 0)
-  {
-    if (client.available() > 0)
-    {
-      message = client.readStringUntil(NULL);
-      Serial.print(message);
-    }
-
-    if (client.connected())
-    {
-      const char *c = message.c_str();
-      client.write(c);
-    }
-  }
-
-  Relay_action(message, message, outputs);
 }

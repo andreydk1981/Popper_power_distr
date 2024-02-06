@@ -2,7 +2,6 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-
 byte mac[] = {0x00, 0x01, 0x9D, 0x0D, 0xE2, 0x77};
 IPAddress server(10, 0, 1, 150);
 IPAddress ip(10, 0, 1, 155);
@@ -16,4 +15,7 @@ int attempt = 0;
 String message;
 EthernetClient client;
 String command;
-void Relay_action(String , String &, int[]);
+void Relay_action(String, String &, int[]);
+void Check_connection(int &);
+void Read_message(String &);
+void Check_status(String &);

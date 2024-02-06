@@ -15,3 +15,8 @@
 extern int outputs[];
 extern int arr_size;
 extern EthernetClient client;
+
+int outputs_state[] = {0,0,0,0,0,0,0,0,0};
+
+void Send_message (int, String);
+
