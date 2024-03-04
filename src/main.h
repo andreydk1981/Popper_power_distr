@@ -15,6 +15,11 @@ int attempt = 0;
 String message;
 EthernetClient client;
 String command;
+
+bool flag2 = false;
+uint32_t main_tmr;
+#define MAIN_TIMER 1000
+
 void Relay_action(String, String &, int[]);
 void Check_connection(int &);
 void Read_message(String &);

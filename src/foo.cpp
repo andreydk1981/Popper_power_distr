@@ -7,10 +7,11 @@ extern int port;
 extern IPAddress server;
 void Light_OFF();
 extern int outputs_state[];
+bool flag = false;
 
 void Check_connection(int &_attempt)
 {
-    if (!client.connected())
+    if (!client.connect(server, port))
     {
         Serial.println("Server not found");
         _attempt = 0;
@@ -20,10 +21,14 @@ void Check_connection(int &_attempt)
             Serial.print("Connection attempt ");
             Serial.println(_attempt++);
             delay(1000);
+            flag ? digitalWrite(2, LOW) : digitalWrite(2, HIGH);
+            flag = !flag;
         } while (!client.connect(server, port));
         Serial.print("Connected to server running at ");
         Serial.println(client.remoteIP());
         client.write("connected to BOX");
+        flag = true;
+        digitalWrite(2, HIGH);
     }
 }
 
@@ -61,6 +66,6 @@ void Check_status(String &_message)
         Serial.println(result);
         const char *c = result.c_str();
         client.write(c);
-        delay(500);
+        _message = "";
     }
 }

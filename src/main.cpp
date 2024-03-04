@@ -7,6 +7,9 @@ void setup()
   {
     pinMode(outputs[i], OUTPUT);
   }
+
+  pinMode(2, OUTPUT); // connection indicator
+
   // Initialize serial communication.
   Serial.begin(9600);
 
@@ -38,6 +41,8 @@ void setup()
   {
     Serial.print("Connection attempt ");
     Serial.println(attempt++);
+    flag2 ? digitalWrite(2, LOW) : digitalWrite(2, HIGH);
+    flag2 = !flag2;
   } while (!client.connect(server, port));
 
   if (client.connect(server, port))
@@ -46,6 +51,8 @@ void setup()
     Serial.println(client.remoteIP());
     client.write("connected to BOX");
     attempt = 0;
+    flag2 = true;
+    digitalWrite(2, HIGH);
   }
   else
   {
@@ -55,9 +62,13 @@ void setup()
 
 void loop()
 {
+  if (millis() - main_tmr >= MAIN_TIMER)
+  {
+    Check_connection(attempt);
+    main_tmr = millis();
+  }
 
-  Check_connection(attempt);
-  Read_message (message);
+  Read_message(message);
 
   if (client.connected())
   {
