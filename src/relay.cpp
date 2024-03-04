@@ -52,7 +52,7 @@ void Relay_action(String _message, String &message, int outputs[])
     message = "";
     digitalWrite(projectrosM, LOW);
     Send_message(projectrosM, "OFF");
-    Output_off_mark(projectrosF);
+    Output_off_mark(projectrosM);
   }
 
   if (_message == "2ON")
