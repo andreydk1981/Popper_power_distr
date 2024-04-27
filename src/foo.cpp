@@ -15,7 +15,7 @@ void Check_connection(int &_attempt)
     {
         Serial.println("Server not found");
         _attempt = 0;
-        Light_OFF();
+        //Light_OFF();
         do
         {
             Serial.print("Connection attempt ");
